@@ -14,12 +14,25 @@ class UsuarioController {
         respond usuarioService.list(params), model:[usuarioCount: usuarioService.count()]
     }
 
-    def show(Long id) {
-        respond usuarioService.get(id)
+    def nuevo() {
+
     }
 
-    def create() {
-        respond new Usuario(params)
+    def create(String nombre, String apellido, String cedula, String email, Date fechaNacimiento) {
+
+        def usuario = new Usuario()
+        usuario.setNombre(nombre)
+        usuario.setApellido(apellido)
+        usuario.setCedula(cedula)
+        usuario.setEmail(email)
+        usuario.setFechaNacimiento(fechaNacimiento)
+
+
+
+        usuario.save(flush:true, failOnError:true)
+
+        redirect(uri: '/')
+
     }
 
     def save(Usuario usuario) {
@@ -31,7 +44,7 @@ class UsuarioController {
         try {
             usuarioService.save(usuario)
         } catch (ValidationException e) {
-            respond usuario.errors, view:'create'
+            respond usuario.errors, view:'index'
             return
         }
 
