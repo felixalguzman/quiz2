@@ -17,6 +17,7 @@ class EventoController {
         respond eventoService.list(params), model: [eventoCount: eventoService.count()]
     }
 
+
     def show(Long id) {
         respond eventoService.get(id)
     }
@@ -38,7 +39,6 @@ class EventoController {
 
         calIni.set(Calendar.HOUR_OF_DAY, Integer.valueOf(horaMinInicio[0]))
         calIni.set(Calendar.MINUTE, Integer.valueOf(horaMinInicio[1]))
-
 
         calFin.set(Calendar.HOUR_OF_DAY, Integer.valueOf(horaMinFin[0]))
         calFin.set(Calendar.MINUTE, Integer.valueOf(horaMinFin[1]))

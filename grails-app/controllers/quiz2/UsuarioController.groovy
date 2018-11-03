@@ -14,6 +14,28 @@ class UsuarioController {
         respond usuarioService.list(params), model:[usuarioCount: usuarioService.count()]
     }
 
+    def agregarEvento(){
+
+        [eventos: Evento.findAll()]
+    }
+
+    def asignarEvento(){
+
+        def evento = Evento.findById(params.id as Long)
+
+        print "nombre: " + evento.nombre
+
+        def usuario = Usuario.first()
+
+        usuario.addToEventos(evento)
+        usuario.save(flush: true, failOnError:true)
+
+
+
+        return false
+    }
+
+
     def nuevo() {
 
     }
@@ -70,7 +92,7 @@ class UsuarioController {
         try {
             usuarioService.save(usuario)
         } catch (ValidationException e) {
-            respond usuario.errors, view:'edit'
+            respond usuario.errors, view:'agregarEvento'
             return
         }
 
